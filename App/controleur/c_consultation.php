@@ -28,7 +28,7 @@ switch ($action) {
         } else {
             afficheMessage("Ce jeu a été ajouté");
         }
-        $lesJeux = M_Exemplaire::trouveLesJeuxDeGenre($genre);
+        $lesJeux = M_Exemplaire::trouveLesExemplaires();
         break;
     default:
         $lesJeux = M_Exemplaire::trouveLesExemplaires();

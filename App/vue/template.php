@@ -30,6 +30,7 @@ Prototype de Lord Of Geek (LOG)
     <main>
         <?php
             print_r($_SESSION['utilisateur']);
+            var_dump($_SESSION);
         // Controleur de vues
         // Selon le cas d'utilisation, j'inclus un controleur ou simplement une vue
         switch ($uc) {
