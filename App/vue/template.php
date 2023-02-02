@@ -29,8 +29,7 @@ Prototype de Lord Of Geek (LOG)
 
     <main>
         <?php
-            print_r($_SESSION['utilisateur']);
-            var_dump($_SESSION);
+        var_dump($_SESSION);
         // Controleur de vues
         // Selon le cas d'utilisation, j'inclus un controleur ou simplement une vue
         switch ($uc) {
@@ -44,7 +43,11 @@ Prototype de Lord Of Geek (LOG)
                 include("App/vue/v_panier.php");
                 break;
             case 'commander':
-                include("App/vue/v_commande.php");
+                if (!isset($_SESSION['connexion'])) {
+                    include 'App/vue/v_authentification.php';
+                } else {
+                    include("App/vue/v_commande.php");
+                }
                 break;
             case 'compte':
                 if (!isset($_SESSION['connexion'])) {
@@ -54,9 +57,9 @@ Prototype de Lord Of Geek (LOG)
                     include 'App/controleur/c_optionCompte.php';
                 }
                 break;
-                case 'inscription':
-                    include("App/vue/v_inscription.php");
-                    break;
+            case 'inscription':
+                include("App/vue/v_inscription.php");
+                break;
             default:
                 break;
         }

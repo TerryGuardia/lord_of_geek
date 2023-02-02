@@ -5,7 +5,8 @@
  *
  * @author Loic LOG
  */
-class M_Commande {
+class M_Commande
+{
 
     /**
      * Crée une commande
@@ -21,10 +22,17 @@ class M_Commande {
      * @param $listJeux
 
      */
-    public static function creerCommande($nom, $rue, $cp, $ville, $mail, $listJeux) {
-        $req = "insert into commandes(nomPrenomClient, adresseRueClient, cpClient, villeClient, mailClient) values ('$nom','$rue','$cp','$ville','$mail')";
+    public static function creerCommande($rue, $cp, $ville, $listJeux, $id_client)
+    {
+
+        //changer les values pour correspondre avec la base de donnée, faire des requetes préparée
+
+        $req = "insert into commandes(nomPrenomClient, adresseRueClient, cpClient, villeClient, mailClient) values ('$rue','$cp','$ville', '$id_client')";
         $res = AccesDonnees::exec($req);
         $idCommande = AccesDonnees::getPdo()->lastInsertId();
+
+        //ajouter les jeux a la lignes de commandes et les delete des exemplaires
+
         foreach ($listJeux as $jeu) {
             $req = "insert into lignes_commande(commande_id, exemplaire_id) values ('$idCommande','$jeu')";
             $res = AccesDonnees::exec($req);
@@ -42,11 +50,9 @@ class M_Commande {
      * @param $mail : chaîne
      * @return : array
      */
-    public static function estValide($nom, $rue, $ville, $cp, $mail) {
+    public static function estValide($rue, $ville, $cp)
+    {
         $erreurs = [];
-        if ($nom == "") {
-            $erreurs[] = "Il faut saisir le champ nom";
-        }
         if ($rue == "") {
             $erreurs[] = "Il faut saisir le champ rue";
         }
@@ -58,12 +64,6 @@ class M_Commande {
         } else if (!estUnCp($cp)) {
             $erreurs[] = "erreur de code postal";
         }
-        if ($mail == "") {
-            $erreurs[] = "Il faut saisir le champ mail";
-        } else if (!estUnMail($mail)) {
-            $erreurs[] = "erreur de mail";
-        }
         return $erreurs;
     }
-
 }
