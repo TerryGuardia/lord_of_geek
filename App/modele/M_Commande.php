@@ -22,23 +22,28 @@ class M_Commande
      * @param $listJeux
 
      */
-    public static function creerCommande($rue, $cp, $ville, $listJeux, $id_client)
+    public static function creerCommande($adresse_livraison, $ville, $cp, $listJeux, $id_client)
     {
 
-        //changer les values pour correspondre avec la base de donnée, faire des requetes préparée
+        $idVille = M_Commande::getIdVille($ville, $cp);
 
-        $req = "insert into commandes(nomPrenomClient, adresseRueClient, cpClient, villeClient, mailClient) values ('$rue','$cp','$ville', '$id_client')";
-        $res = AccesDonnees::exec($req);
+        $req = "INSERT INTO commandes (client_id, adresse_livraison, villes_id) VALUES (:id_client, :adresse, :ville_id)";
+        $res = AccesDonnees::prepare($req);
+        $res->bindValue(':id_client', $id_client);
+        $res->bindValue(':adresse', $adresse_livraison);
+        $res->bindValue(':ville_id', $idVille);
+        $res->execute();
+
         $idCommande = AccesDonnees::getPdo()->lastInsertId();
 
-        //ajouter les jeux a la lignes de commandes et les delete des exemplaires
-
         foreach ($listJeux as $jeu) {
-            $req = "insert into lignes_commande(commande_id, exemplaire_id) values ('$idCommande','$jeu')";
-            $res = AccesDonnees::exec($req);
+            $req = "INSERT INTO lignes_commande (commande_id, exemplaire_id) VALUES (:idcommande, :jeu)";
+            $res = AccesDonnees::prepare($req);
+            $res->bindValue(':idcommande', $idCommande);
+            $res->bindValue(':jeu', $jeu);
+            $res->execute();
         }
     }
-
     /**
      * Retourne vrai si pas d'erreur
      * Remplie le tableau d'erreur s'il y a
@@ -66,4 +71,27 @@ class M_Commande
         }
         return $erreurs;
     }
+
+    public static function getIdVille($ville, $cp)
+    {
+        $req = 'SELECT id FROM villes WHERE nom = :nom AND cp = :cp';
+        $res = AccesDonnees::prepare($req);
+        $res->bindValue(':nom', $ville);
+        $res->bindValue(':cp', $cp);
+        $res->execute();
+        $ville_id = $res->fetchColumn();
+        return intval($ville_id);
+    }
+
+    // public static function supprimerExemplaires($listJeux)
+    // {
+    //     // Pour chaque jeu dans la liste
+    //     foreach ($listJeux as $jeu) {
+    //         // Supprimer l'exemplaire correspondant dans la base de données
+    //         $req = "DELETE FROM exemplaires WHERE id = :jeu";
+    //         $res = AccesDonnees::prepare($req);
+    //         $res->bindValue(':jeu', $jeu);
+    //         $res->execute();
+    //     }
+    // }
 }

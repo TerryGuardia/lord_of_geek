@@ -28,18 +28,16 @@ switch ($action) {
         $cp = filter_input(INPUT_POST, 'cp');
         $ville = filter_input(INPUT_POST, 'ville');
         $id_client = $_SESSION['utilisateur']['id'];
+        $adresse_livraison = $rue;
         $errors = M_Commande::estValide($rue, $ville, $cp);
         if (count($errors) > 0) {
             // Si une erreur, on recommence
             afficheErreurs($errors);
-        }
-        // else if {
-        //    //ajout de vérification , si l'adresse n'est pas la meme que celui du compte 
-        // }
-         else {
+        } else {
             $lesIdJeu = getLesIdJeuxDuPanier();
-            M_Commande::creerCommande($rue, $cp, $ville, $lesIdJeu, $id_client);
+            M_Commande::creerCommande($adresse_livraison, $ville, $cp, $lesIdJeu, $id_client);
             supprimerPanier();
+            // M_Commande::supprimerExemplaires($lesIdJeu);
             afficheMessage("Commande enregistrée");
             $uc = '';
         }
