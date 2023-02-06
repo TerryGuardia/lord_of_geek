@@ -1,5 +1,6 @@
 <?php
 
+include_once 'App/modele/M_Session.php';
 
 switch ($action) {
     case 'inscription':
@@ -11,7 +12,7 @@ switch ($action) {
         $cp = filter_input(INPUT_POST, 'cp');
         $mdp = filter_input(INPUT_POST, 'mdp');
 
-        Session::inscription($nom, $prenom, $email, $adresse, $ville, $cp, $mdp);
+        M_Session::inscription($nom, $prenom, $email, $adresse, $ville, $cp, $mdp);
         afficheMessage('Votre compte a été crée avec succes.');
         break;
 
@@ -19,9 +20,9 @@ switch ($action) {
         $email = filter_input(INPUT_POST, 'email');
         $mdp = filter_input(INPUT_POST, 'mdp');
 
-        if (Session::utilisateur_existe($email) && Session::checkPassword($email, $mdp)) {
+        if (M_Session::utilisateur_existe($email) && M_Session::checkPassword($email, $mdp)) {
             $_SESSION['connexion'] = 'on';
-            $utilisateur = Session::utilisateurInfo($email);
+            $utilisateur = M_Session::utilisateurInfo($email);
             $_SESSION['utilisateur'] = array(
                 'id' => $utilisateur['id'],
                 'nom' => $utilisateur['nom'],
@@ -47,10 +48,10 @@ switch ($action) {
         $mdp = filter_input(INPUT_POST, 'mdp');
 
         if (isset($_SESSION['connexion'])) {
-            Session::modification($nom, $prenom, $email, $adresse, $ville, $cp, $mdp);
+            M_Session::modification($nom, $prenom, $email, $adresse, $ville, $cp, $mdp);
             afficheMessage('Vos informations on bien été mis à jour.');
             
-            $utilisateur = Session::utilisateurInfo($email);
+            $utilisateur = M_Session::utilisateurInfo($email);
             $_SESSION['utilisateur'] = array(
                 'id' => $utilisateur['id'],
                 'nom' => $utilisateur['nom'],

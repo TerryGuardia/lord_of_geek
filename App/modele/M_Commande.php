@@ -1,5 +1,6 @@
 <?php
 
+include_once("./App/modele/AccesDonnees.php");
 /**
  * Requetes sur les commandes
  *
@@ -14,13 +15,11 @@ class M_Commande
      * Crée une commande à partir des arguments validés passés en paramètre, l'identifiant est
      * construit à partir du maximum existant ; crée les lignes de commandes dans la table contenir à partir du
      * tableau d'idProduit passé en paramètre
-     * @param $nom
-     * @param $rue
-     * @param $cp
+     * @param $adresse_livraison
      * @param $ville
-     * @param $mail
+     * @param $cp
      * @param $listJeux
-
+     * @param $id_client
      */
     public static function creerCommande($adresse_livraison, $ville, $cp, $listJeux, $id_client)
     {
@@ -48,11 +47,9 @@ class M_Commande
      * Retourne vrai si pas d'erreur
      * Remplie le tableau d'erreur s'il y a
      *
-     * @param $nom : chaîne
      * @param $rue : chaîne
      * @param $ville : chaîne
      * @param $cp : chaîne
-     * @param $mail : chaîne
      * @return : array
      */
     public static function estValide($rue, $ville, $cp)
@@ -83,15 +80,14 @@ class M_Commande
         return intval($ville_id);
     }
 
-    // public static function supprimerExemplaires($listJeux)
-    // {
-    //     // Pour chaque jeu dans la liste
-    //     foreach ($listJeux as $jeu) {
-    //         // Supprimer l'exemplaire correspondant dans la base de données
-    //         $req = "DELETE FROM exemplaires WHERE id = :jeu";
-    //         $res = AccesDonnees::prepare($req);
-    //         $res->bindValue(':jeu', $jeu);
-    //         $res->execute();
-    //     }
-    // }
+    public static function supprimerExemplaires($listJeux)
+    {
+        foreach ($listJeux as $jeu) {
+            //donne la valeur 1 au booléen a_vendre de la table exemplaires
+            $req = "UPDATE exemplaires SET `a_vendre` = 1 WHERE id = :jeu";
+            $res = AccesDonnees::prepare($req);
+            $res->bindValue(':jeu', $jeu);
+            $res->execute();
+        }
+    }
 }

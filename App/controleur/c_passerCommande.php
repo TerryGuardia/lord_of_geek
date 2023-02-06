@@ -36,8 +36,8 @@ switch ($action) {
         } else {
             $lesIdJeu = getLesIdJeuxDuPanier();
             M_Commande::creerCommande($adresse_livraison, $ville, $cp, $lesIdJeu, $id_client);
+            M_Commande::supprimerExemplaires($lesIdJeu);
             supprimerPanier();
-            // M_Commande::supprimerExemplaires($lesIdJeu);
             afficheMessage("Commande enregistrée");
             $uc = '';
         }

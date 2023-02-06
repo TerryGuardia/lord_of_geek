@@ -1,6 +1,8 @@
 <?php
 
-class Session
+include_once("./App/modele/AccesDonnees.php");
+
+class M_Session
 {
     public static function utilisateur_existe($email): bool
     {
@@ -115,5 +117,35 @@ class Session
         $res->bindValue(':mdp', $mdp);
         $res->bindValue(':ville_id', $ville_id);
         $res->execute();
+    }
+
+    public static function getCommandesDuClient()
+    {
+        // $idClient = $_SESSION['utilisateur']['id'];
+        // $req = 'SELECT * FROM commandes WHERE client_id = :idClient';
+        // $res = AccesDonnees::prepare($req);
+        // $res->bindValue(':idClient', $idClient);
+        // $res->execute();
+        // $commandes = $res->fetchAll();
+        // return $commandes;
+        $idClient = $_SESSION['utilisateur']['id'];
+        $req = 'SELECT commandes.*, villes.nom, villes.cp FROM commandes 
+        INNER JOIN villes ON commandes.villes_id = villes.id
+        WHERE client_id = :idClient';
+        $res = AccesDonnees::prepare($req);
+        $res->bindValue(':idClient', $idClient);
+        $res->execute();
+        $commandes = $res->fetchAll();
+        return $commandes;
+    }
+
+    public static function getJeuxDeLaCommande($idCommande)
+    {
+        $req = 'SELECT * FROM exemplaires WHERE id IN (SELECT exemplaire_id FROM lignes_commande WHERE commande_id = :idCommande)';
+        $res = AccesDonnees::prepare($req);
+        $res->bindValue(':idCommande', $idCommande);
+        $res->execute();
+        $jeux = $res->fetchAll();
+        return $jeux;
     }
 }

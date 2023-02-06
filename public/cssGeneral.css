@@ -134,3 +134,12 @@ input[type="submit"]
     width: 30%;
 }
 
+.d-flex {
+    display: flex;
+}
+.ml-25 {
+    margin-left: 25px;
+}
+.ml-50 {
+    margin-left: 50px;
+}

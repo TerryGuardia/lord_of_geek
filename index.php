@@ -10,8 +10,6 @@ ini_set("display_errors", 1);
 
 require("./util/fonctions.inc.php");
 require('./util/validateurs.inc.php');
-require("./App/modele/AccesDonnees.php");
-require(".//App/modele/M_Session.php");
 
 $uc = filter_input(INPUT_GET, 'uc'); // Use Case
 $action = filter_input(INPUT_GET, 'action'); // Action

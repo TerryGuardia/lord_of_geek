@@ -46,8 +46,8 @@
         ?>
             <article>
                 <img src="public/images/jeux/<?= $image ?>" alt="Image de <?= $description; ?>" />
-                <p><?= $etat ?></p>
                 <p><?= $description ?></p>
+                <p>Etat : <?= $etat ?></p>
                 <p><?= "Prix : " . $prix . " Euros" ?>
                     <a href="index.php?uc=visite&jeu=<?= $id ?>&action=ajouterAuPanier">
                         <img src="public/images/mettrepanier.png" title="Ajouter au panier" class="add" />

@@ -1,7 +1,8 @@
 <?php
 
+include_once("./App/modele/AccesDonnees.php");
 /**
- * Les jeux sont rangés par catégorie
+ * Les jeux sont rangés par Genre
  *
  * @author Loic LOG
  */
@@ -14,7 +15,8 @@ class M_Genre {
      */
     public static function trouveLesGenres() {
         $req = "SELECT * FROM genres";
-        $res = AccesDonnees::query($req);
+        $res = AccesDonnees::prepare($req);
+        $res->execute();
         $lesLignes = $res->fetchAll();
         return $lesLignes;
     }

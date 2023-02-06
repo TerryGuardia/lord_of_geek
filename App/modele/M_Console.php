@@ -1,5 +1,6 @@
 <?php
 
+include_once("./App/modele/AccesDonnees.php");
 /**
  * Les jeux sont rangés par console
  *
@@ -8,13 +9,14 @@
 class M_Console {
 
     /**
-     * Retourne tous les genres sous forme d'un tableau associatif
+     * Retourne toutes les consoles sous forme d'un tableau associatif
      *
-     * @return le tableau associatif des genres
+     * @return le tableau associatif des consoles
      */
     public static function trouveLesConsoles() {
         $req = "SELECT * FROM consoles";
-        $res = AccesDonnees::query($req);
+        $res = AccesDonnees::prepare($req);
+        $res->execute();
         $lesLignes = $res->fetchAll();
         return $lesLignes;
     }
