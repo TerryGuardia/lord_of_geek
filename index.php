@@ -3,11 +3,6 @@
 session_start();
 
 
-// Pour afficher les erreurs PHP
-error_reporting(E_ALL);
-ini_set("display_errors", 1);
-// Attention : A supprimer en production !!!
-
 require("./util/fonctions.inc.php");
 require('./util/validateurs.inc.php');
 

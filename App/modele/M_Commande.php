@@ -23,7 +23,6 @@ class M_Commande
      */
     public static function creerCommande($adresse_livraison, $ville, $cp, $listJeux, $id_client)
     {
-
         $idVille = M_Commande::getIdVille($ville, $cp);
 
         $req = "INSERT INTO commandes (client_id, adresse_livraison, villes_id) VALUES (:id_client, :adresse, :ville_id)";
@@ -69,6 +68,13 @@ class M_Commande
         return $erreurs;
     }
 
+    /**
+     * Récupère l'id qui correspond au nom de la ville et le retourne.
+     *
+     * @param $ville : chaîne
+     * @param $cp : chaîne
+     * @return : int
+     */
     public static function getIdVille($ville, $cp)
     {
         $req = 'SELECT id FROM villes WHERE nom = :nom AND cp = :cp';
@@ -80,10 +86,14 @@ class M_Commande
         return intval($ville_id);
     }
 
+    /**
+     * Donne la valeur 1 au booléen a_vendre de la table exemplaires.
+     *
+     * @param $listJeux : array
+     */
     public static function supprimerExemplaires($listJeux)
     {
         foreach ($listJeux as $jeu) {
-            //donne la valeur 1 au booléen a_vendre de la table exemplaires
             $req = "UPDATE exemplaires SET `a_vendre` = 1 WHERE id = :jeu";
             $res = AccesDonnees::prepare($req);
             $res->bindValue(':jeu', $jeu);

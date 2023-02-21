@@ -3,11 +3,11 @@
     <fieldset>
         <p>
             <label for="email">Votre Email :</label>
-            <input type="email" name="email" id="email">
+            <input type="email" name="email" id="email" maxlength="150" pattern="^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,6}$" required>
         </p>
         <p>
             <label for="mdp">Votre Mot de passe :</label>
-            <input type="password" name="mdp" id="mdp">
+            <input type="password" name="mdp" id="mdp" maxlength="80" required>
         </p>
     </fieldset>
     <p>

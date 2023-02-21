@@ -5,15 +5,15 @@
 
             <p>
                 <label for="rue">rue*</label>
-                <input id="rue" type="text" name="rue" value="<?= $rue ?>" size="80" maxlength="80">
+                <input id="rue" type="text" name="rue" value="<?= $rue ?>" maxlength="150" required>
             </p>
             <p>
                 <label for="cp">code postal* </label>
-                <input id="cp" type="text" name="cp" value="<?= $cp ?>" size="5" maxlength="5">
+                <input id="cp" type="text" name="cp" value="<?= $cp ?>" maxlength="5" pattern="\d{2}[ ]?\d{3}" required>
             </p>
             <p>
                 <label for="ville">ville* </label>
-                <input id="ville" type="text" name="ville"  value="<?= $ville ?>" size="45" maxlength="45">
+                <input id="ville" type="text" name="ville"  value="<?= $ville ?>" maxlength="45" required>
             </p>
             <p>
                 <input type="submit" value="Valider" name="valider">

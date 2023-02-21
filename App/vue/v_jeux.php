@@ -2,7 +2,7 @@
     <form action="index.php" method="get">
         <input type="hidden" name="uc" value="visite">
         <input type="hidden" name="action" value="rechercheJeux">
-        <input type="text" name="nomJeu" placeholder="Rechercher un jeu">
+        <input type="text" name="nomJeu" placeholder="Rechercher un jeu" maxlength="150" pattern="^[a-z]*$">
         <input type="submit" value="Rechercher">
     </form>
 </div>

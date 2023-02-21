@@ -11,7 +11,7 @@ class M_Genre {
     /**
      * Retourne tous les genres sous forme d'un tableau associatif
      *
-     * @return le tableau associatif des genres
+     * @return array
      */
     public static function trouveLesGenres() {
         $req = "SELECT * FROM genres";

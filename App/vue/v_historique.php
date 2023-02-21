@@ -18,7 +18,7 @@ foreach ($commandes as $commande) {
             <img src="public/images/jeux/<?php echo $image ?>" alt=image width=100 height=100 />
             <?php
             echo "<br>Etat de l'article : " . $etat . '<br>';
-            echo $description . "($prix Euros)";
+            echo $description . " $prix €";
             ?>
         </p>
 <?php

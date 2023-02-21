@@ -59,7 +59,11 @@ class AccesDonnees {
         return AccesDonnees::getPdo()->exec($requete_sql);
     }
 
-
+    /**
+     * Prépare une déclaration pour l'exécution et renvoie un objet de déclaration.
+     * @param string $requete_sql
+     * @return PDOStatement
+     */
     public static function prepare(string $requete_sql) {
         return AccesDonnees::getPdo()->prepare($requete_sql);
     }

@@ -45,10 +45,9 @@ switch ($action) {
         $adresse = filter_input(INPUT_POST, 'adresse');
         $ville = filter_input(INPUT_POST, 'ville');
         $cp = filter_input(INPUT_POST, 'cp');
-        $mdp = filter_input(INPUT_POST, 'mdp');
 
         if (isset($_SESSION['connexion'])) {
-            M_Session::modification($nom, $prenom, $email, $adresse, $ville, $cp, $mdp);
+            M_Session::modification($nom, $prenom, $email, $adresse, $ville, $cp);
             afficheMessage('Vos informations on bien été mis à jour.');
             
             $utilisateur = M_Session::utilisateurInfo($email);

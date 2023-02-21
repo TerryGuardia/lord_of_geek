@@ -9,6 +9,12 @@ include_once("./App/modele/AccesDonnees.php");
 class M_Exemplaire
 {
 
+    /**
+     * Retourne sous forme d'un tableau associatif tous les jeux qui
+     * sont encore à vendre.
+     *
+     * @return array
+     */
     public static function trouveLesExemplaires()
     {
         $req = "SELECT * FROM exemplaires WHERE a_vendre = 0";
@@ -19,28 +25,28 @@ class M_Exemplaire
     }
 
     /**
-     * Retourne sous forme d'un tableau associatif tous les jeux de la
-     * catégorie passée en argument
+     * Retourne sous forme d'un tableau associatif tous les jeux dont
+     * le genre correspond à l'id.
      *
      * @param $idGenre
-     * @return un tableau associatif
+     * @return array
      */
     public static function trouveLesJeuxDeGenre($idGenre)
     {
-        $req = "SELECT * FROM exemplaires WHERE genre_id = :idgenre";
+        $req = "SELECT * FROM exemplaires WHERE genre_id = :id";
         $res = AccesDonnees::prepare($req);
-        $res->bindValue(':idgenre', $idGenre);
+        $res->bindValue(':id', $idGenre);
         $res->execute();
         $lesLignes = $res->fetchAll();
         return $lesLignes;
     }
 
     /**
-     * Retourne sous forme d'un tableau associatif tous les jeux de la
-     * catégorie passée en argument
+     * Retourne sous forme d'un tableau associatif tous les jeux dont
+     * le type de console correspond à l'id.
      *
-     * @param $idGenre
-     * @return un tableau associatif
+     * @param $idConsole
+     * @return array
      */
     public static function trouveLesJeuxDeConsole($idConsole)
     {
@@ -52,11 +58,18 @@ class M_Exemplaire
         return $lesLignes;
     }
 
+    /**
+     * Retourne sous forme d'un tableau associatif tous les jeux dont
+     * la description comporte $nomJeu.
+     *
+     * @param $nomJeu
+     * @return array
+     */
     public static function trouveLesJeuxParNom($nomJeu)
     {
         $req = "SELECT * FROM exemplaires WHERE description LIKE :nomJeu AND a_vendre = 0";
         $res = AccesDonnees::prepare($req);
-        $res->bindValue(':nomJeu', '%'.$nomJeu.'%');
+        $res->bindValue(':nomJeu', '%' . $nomJeu . '%');
         $res->execute();
         $lesJeux = $res->fetchAll();
         return $lesJeux;

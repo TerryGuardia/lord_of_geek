@@ -11,7 +11,7 @@ class M_Console {
     /**
      * Retourne toutes les consoles sous forme d'un tableau associatif
      *
-     * @return le tableau associatif des consoles
+     * @return array
      */
     public static function trouveLesConsoles() {
         $req = "SELECT * FROM consoles";
