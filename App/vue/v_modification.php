@@ -5,11 +5,11 @@
         <legend>Modification</legend>
         <p>
             <label for="nom">Nom :</label>
-            <input type="text" name="nom" id="nom" value="<?= $_SESSION['utilisateur']['nom'] ?>" maxlength="45" pattern="^[a-z ,.'-]+$" required>
+            <input type="text" name="nom" id="nom" value="<?= $_SESSION['utilisateur']['nom'] ?>" maxlength="45" pattern="^[a-zA-Z][a-z ,.'-]+$" required>
         </p>
         <p>
             <label for="prenom">Prénom :</label>
-            <input type="text" name="prenom" id="prenom" value="<?= $_SESSION['utilisateur']['prenom'] ?>" maxlength="45" pattern="^[a-z ,.'-]+$" required>
+            <input type="text" name="prenom" id="prenom" value="<?= $_SESSION['utilisateur']['prenom'] ?>" maxlength="45" pattern="^[a-zA-Z][a-z ,.'-]+$" required>
         </p>
         <p>
             <label for="email">Email :</label>

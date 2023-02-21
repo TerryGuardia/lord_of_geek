@@ -4,11 +4,11 @@
         <legend>Inscription</legend>
         <p>
             <label for="nom">Nom :</label>
-            <input type="text" name="nom" id="nom" maxlength="45" pattern="^[a-z ,.'-]+$" required>
+            <input type="text" name="nom" id="nom" maxlength="45" pattern="^[a-zA-Z][a-z ,.'-]+$" required>
         </p>
         <p>
             <label for="prenom">Prénom :</label>
-            <input type="text" name="prenom" id="prenom" maxlength="45" pattern="^[a-z ,.'-]+$" required>
+            <input type="text" name="prenom" id="prenom" maxlength="45" pattern="^[a-zA-Z][a-z ,.'-]+$" required>
         </p>
         <p>
             <label for="email">Email :</label>
